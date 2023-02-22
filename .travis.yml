@@ -1,0 +1,22 @@
+# https://docs.travis-ci.com
+
+sudo: required
+language: bash
+
+jobs:
+  include:
+    - os: linux
+      dist: focal
+      before_install: sudo apt-get update
+      arch:
+        - amd64
+
+script:
+  - sudo bash -c "sudo apt update -q; sudo apt upgrade -yy -qq"
+  - sudo bash -c "$(curl -LSs https://github.com/systemmgr/installer/raw/main/install.sh)" && systemmgr install installer
+  - sudo bash -c "$(curl -LSs https://github.com/casjay/debian/raw/main/install.sh)"
+
+notifications:
+  email:
+    on_failure: never
+    on_success: never
